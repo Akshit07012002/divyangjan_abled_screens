@@ -22,12 +22,12 @@ class UploadFile extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(70, 20, 0, 0),
             alignment: Alignment.centerLeft,
             child: const Text('Upload Files')),
-        toolbarHeight: 85,
+        toolbarHeight: 75,
       ),
       body: Column(
         children: [
           const SizedBox(
-            height: 40,
+            height: 30,
           ),
           Center(
             child: Container(
@@ -269,15 +269,12 @@ class UploadFile extends StatelessWidget {
           ElevatedButton(
               child: const Text(
                 'Upload',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 20, color: Colors.white),
               ),
-              style: ElevatedButton.styleFrom(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 90, vertical: 20),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                primary: customOrange,
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(customOrange),
+                padding: MaterialStateProperty.all(
+                    EdgeInsets.fromLTRB(95, 20, 95, 20)),
               ),
               onPressed: null),
         ],
