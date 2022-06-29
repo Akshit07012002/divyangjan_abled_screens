@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'CustomColors.dart';
-import 'UploadFile.dart';
+import 'customColors.dart';
+import 'uploadFile.dart';
+import 'Widgets/customBottomNavBar.dart';
 
 void main() {
   runApp(const Abled());
@@ -17,8 +18,12 @@ class Abled extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: customPurple, // custom color created
       ),
-      home: const UploadFile(),
+      initialRoute: '/',
       debugShowCheckedModeBanner: false,
+      routes: {
+        '/': (context) => UploadFile(),
+        '/bnb': (context) => myBottomNavBar(),
+      },
     );
   }
 }
