@@ -18,7 +18,7 @@ class Abled extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: customPurple, // custom color created
       ),
-      initialRoute: '/',
+      initialRoute: '/bnb',
       debugShowCheckedModeBanner: false,
       routes: {
         '/': (context) => const UploadFile(),

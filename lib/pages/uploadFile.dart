@@ -1,13 +1,52 @@
-import 'package:divyangjan_abled_screens/Widgets/customBottomNavBar.dart';
+import 'dart:io';
+
 import 'package:divyangjan_abled_screens/common_utils/card.dart';
 import 'package:flutter/material.dart';
+import '../common_utils/utils.dart';
 import '../customColors.dart';
+import 'package:file_picker/file_picker.dart';
 
-class UploadFile extends StatelessWidget {
+class UploadFile extends StatefulWidget {
   const UploadFile({Key? key}) : super(key: key);
 
   @override
+  State<UploadFile> createState() => _UploadFileState();
+}
+
+class _UploadFileState extends State<UploadFile> {
+  int itemNum = 0;
+
+  void getFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'pdf', 'doc', 'png'],
+    );
+
+    if (result != null) {
+      setState(() {
+        itemNum++;
+      });
+      List<File> files = result.paths.map((path) => File(path!)).toList();
+      PlatformFile file = result.files.first;
+
+      fileNames.add(file.name);
+      fileSizes.add(file.size);
+      print(file.name);
+      print(file.bytes);
+      print(file.size);
+      print(file.extension);
+      print(file.path);
+    } else {
+      // User canceled the picker
+      print("Canceled");
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -31,12 +70,12 @@ class UploadFile extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(
-                height: 30,
-              ),
+              SizedBox(height: screenHeight * 0.05),
               Center(
                 child: Container(
-                  padding: const EdgeInsets.fromLTRB(75, 50, 75, 50),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: screenWidth * 0.08,
+                      vertical: screenHeight * 0.01),
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: Colors.black26,
@@ -45,9 +84,9 @@ class UploadFile extends StatelessWidget {
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                   ),
                   child: Column(
-                    children: const [
+                    children: [
                       IconButton(
-                        onPressed: null,
+                        onPressed: getFile,
                         icon: Icon(Icons.arrow_circle_up_rounded),
                         tooltip: 'Select File',
                         iconSize: 100,
@@ -68,32 +107,24 @@ class UploadFile extends StatelessWidget {
                 height: 215,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(35, 15, 35, 15),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: const [
-                        MyCard(
-                          fileName: 'Filename1.pdf',
-                          fileSize: 420,
+                  child: (itemNum > 0)
+                      ? ListView.builder(
+                          // shrinkWrap: true,
+                          itemCount: itemNum,
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (context, index) => Container(
+                                height: screenHeight * 0.09,
+                                width: 100,
+                                child: MyCard(
+                                  fileName: fileNames[index],
+                                  fileSize: fileSizes[index],
+                                ),
+                              ))
+                      : Container(
+                          height: screenHeight * 0.09,
+                          width: 100,
+                          child: Text("NO FILES SELECTED"),
                         ),
-                        MyCard(
-                          fileName: 'Filename2.pdf',
-                          fileSize: 430,
-                        ),
-                        MyCard(
-                          fileName: 'Filename3.pdf',
-                          fileSize: 440,
-                        ),
-                        MyCard(
-                          fileName: 'Filename4.pdf',
-                          fileSize: 450,
-                        ),
-                        MyCard(
-                          fileName: 'Filename4.pdf',
-                          fileSize: 1024,
-                        ),
-                      ],
-                    ),
-                  ),
                 ),
               ),
 
@@ -160,7 +191,7 @@ class UploadFile extends StatelessWidget {
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(customOrange),
                     padding: MaterialStateProperty.all(
-                        EdgeInsets.fromLTRB(95, 20, 95, 20)),
+                        const EdgeInsets.fromLTRB(95, 20, 95, 20)),
                   ),
                   onPressed: () {
                     Navigator.pushNamed(context, '/bnb');

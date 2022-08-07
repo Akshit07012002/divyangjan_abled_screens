@@ -18,7 +18,7 @@ class _myBottomNavBarState extends State<myBottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("TITLE")),
+      // appBar: AppBar(title: const Text("TITLE")),
       body: screens[currentIndex],
       // body: PageView.builder(
       //   itemCount: 4,
