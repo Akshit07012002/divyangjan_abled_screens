@@ -104,28 +104,29 @@ class _UploadFileState extends State<UploadFile> {
 
               // Files Scrollable
               SizedBox(
-                height: 215,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(35, 15, 35, 15),
-                  child: (itemNum > 0)
-                      ? ListView.builder(
+                height: screenHeight * 0.27,
+                child: (itemNum > 0)
+                    ? Padding(
+                        padding: const EdgeInsets.fromLTRB(35, 15, 35, 15),
+                        child: ListView.builder(
                           // shrinkWrap: true,
                           itemCount: itemNum,
                           scrollDirection: Axis.vertical,
                           itemBuilder: (context, index) => Container(
-                                height: screenHeight * 0.09,
-                                width: 100,
-                                child: MyCard(
-                                  fileName: fileNames[index],
-                                  fileSize: fileSizes[index],
-                                ),
-                              ))
-                      : Container(
-                          height: screenHeight * 0.09,
-                          width: 100,
-                          child: Text("NO FILES SELECTED"),
+                            height: screenHeight * 0.09,
+                            width: 100,
+                            child: MyCard(
+                              fileName: fileNames[index],
+                              fileSize: fileSizes[index],
+                            ),
+                          ),
                         ),
-                ),
+                      )
+                    : Container(
+                        height: screenHeight,
+                        width: 100,
+                        child: const Text("NO FILES SELECTED"),
+                      ),
               ),
 
               SizedBox(
