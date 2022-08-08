@@ -8,25 +8,28 @@ class MyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Card(
       elevation: 5,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(screenWidth * 0.01),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const SizedBox(
-              width: 15,
+            SizedBox(
+              width: screenWidth * 0.05,
             ),
-            const Icon(
+            Icon(
               Icons.picture_as_pdf,
-              size: 50,
+              size: screenWidth * 0.1,
             ),
-            const SizedBox(
-              width: 30,
+            SizedBox(
+              width: screenWidth * 0.1,
             ),
             Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [Text(fileName), Text('$fileSize Kb')],
             ),
           ],

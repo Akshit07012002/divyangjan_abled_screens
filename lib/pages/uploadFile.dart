@@ -15,17 +15,21 @@ class UploadFile extends StatefulWidget {
 
 class _UploadFileState extends State<UploadFile> {
   int itemNum = 0;
+  // String type = "";
 
   void getFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       allowMultiple: true,
       type: FileType.custom,
-      allowedExtensions: ['jpg', 'pdf', 'doc', 'png'],
+      // allowedExtensions: ['jpg', 'pdf', 'doc', 'png'],
+      allowedExtensions: ['pdf'],
     );
 
     if (result != null) {
       setState(() {
         itemNum++;
+        // type = fileNames.elementAt(0).split('.');
+        print("itemNum : ${itemNum}  ");
       });
       List<File> files = result.paths.map((path) => File(path!)).toList();
       PlatformFile file = result.files.first;
@@ -62,7 +66,7 @@ class _UploadFileState extends State<UploadFile> {
             ),
           ),
           title: Container(
-              padding: const EdgeInsets.fromLTRB(70, 20, 0, 0),
+              padding: EdgeInsets.fromLTRB(screenWidth * 0.2, 20, 0, 0),
               alignment: Alignment.centerLeft,
               child: const Text('Upload Files')),
           toolbarHeight: 75,
@@ -103,11 +107,15 @@ class _UploadFileState extends State<UploadFile> {
               ),
 
               // Files Scrollable
-              SizedBox(
-                height: screenHeight * 0.27,
-                child: (itemNum > 0)
-                    ? Padding(
-                        padding: const EdgeInsets.fromLTRB(35, 15, 35, 15),
+              (itemNum > 0)
+                  ? Container(
+                      height: screenHeight * 0.25,
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(
+                            screenWidth * 0.08,
+                            screenHeight * 0.01,
+                            screenWidth * 0.08,
+                            screenHeight * 0.01),
                         child: ListView.builder(
                           // shrinkWrap: true,
                           itemCount: itemNum,
@@ -121,24 +129,27 @@ class _UploadFileState extends State<UploadFile> {
                             ),
                           ),
                         ),
-                      )
-                    : Container(
-                        height: screenHeight,
-                        width: 100,
-                        child: const Text("NO FILES SELECTED"),
                       ),
-              ),
+                    )
+                  : Container(
+                      alignment: Alignment.center,
+                      height: screenHeight * 0.1,
+                      width: screenWidth * 0.5,
+                      child: const Text("NO FILES SELECTED"),
+                    ),
 
               SizedBox(
-                height: 95,
+                height: screenHeight * 0.1,
                 child:
                     // Stack(
                     //   children: [
                     Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
+                  padding: EdgeInsets.fromLTRB(screenWidth * 0.1,
+                      screenHeight * 0.01, screenWidth * 0.1, 0),
                   child: Container(
                     width: 320,
-                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
+                    padding: EdgeInsets.fromLTRB(screenWidth * 0.05,
+                        screenHeight * 0.01, screenWidth * 0.05, 0),
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: Colors.black26,
@@ -147,6 +158,7 @@ class _UploadFileState extends State<UploadFile> {
                       borderRadius: const BorderRadius.all(Radius.circular(10)),
                     ),
                     child: const TextField(
+                      showCursor: true,
                       decoration: InputDecoration(
                         hintText: 'Add a comment',
                         border: InputBorder.none,
@@ -181,8 +193,8 @@ class _UploadFileState extends State<UploadFile> {
                 // ],
                 // ),
               ),
-              const SizedBox(
-                height: 15,
+              SizedBox(
+                height: screenHeight * 0.015,
               ),
               ElevatedButton(
                   child: const Text(
@@ -191,8 +203,11 @@ class _UploadFileState extends State<UploadFile> {
                   ),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(customOrange),
-                    padding: MaterialStateProperty.all(
-                        const EdgeInsets.fromLTRB(95, 20, 95, 20)),
+                    padding: MaterialStateProperty.all(EdgeInsets.fromLTRB(
+                        screenWidth * 0.2,
+                        screenHeight * 0.025,
+                        screenWidth * 0.2,
+                        screenHeight * 0.025)),
                   ),
                   onPressed: () {
                     Navigator.pushNamed(context, '/bnb');
