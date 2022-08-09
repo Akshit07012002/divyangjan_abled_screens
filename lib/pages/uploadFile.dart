@@ -22,7 +22,7 @@ class _UploadFileState extends State<UploadFile> {
       allowMultiple: true,
       type: FileType.custom,
       // allowedExtensions: ['jpg', 'pdf', 'doc', 'png'],
-      allowedExtensions: ['pdf'],
+      allowedExtensions: ['pdf', 'jpg', 'png'],
     );
 
     if (result != null) {
